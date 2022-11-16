@@ -1,0 +1,613 @@
+<html>
+<head>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta charset="utf-8">
+
+  
+<style>
+
+body{
+  margin:0;
+  padding:0;
+  background: linear-gradient(180deg, #202738 0%, #070816 100%);
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+input[type=button][id="button_connect"] {
+  top:2%;
+  left:85%;
+  width:250px;
+  height:60px;
+  padding: 5px ;
+  border-radius: 10px;
+  position:  absolute;
+  background-color: #232C56;
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+input[type=button][id="button_connect"]:hover{
+  color:#99a1bd;
+}
+  
+input[type=text]{
+   height:50px;
+   font-size:20pt;
+}
+input[type=text][id='amount_h']{
+   height:50px;
+   width:185px;
+   font-size:20pt;
+}
+
+div1{
+  color: white;
+  margin-top: 300px;
+  left:72%;
+}
+
+h1{
+  font-size: 50px;
+  margin-top: 30px;
+  color:white;
+  text-align: center;
+}  
+
+h3{
+  left:37%;
+  position: absolute;
+  margin-top: 20px;
+  text-align: center;
+  font-size:30px;
+  color:white;
+}
+
+form{
+  left:15%;
+  position: absolute;
+  margin-top: 100px;
+  font-size:30px;
+  color:white;}
+  
+fieldset1{
+  left:15%;
+  position: absolute;
+  margin-top: 250px;
+  font-size:30px;
+  color:white;}
+
+fieldset2{
+  left:15%;
+  position: absolute;
+  margin-top: 400px;
+  font-size:30px;
+  color:white;}
+
+fieldset3{
+  left:62%;
+  position: absolute;
+  margin-top: 100px;
+  font-size:30px;
+  color:white;}
+#TextArea1{
+  font-size:20px;
+  resize: none;
+}
+fieldset4{
+  left:62%;
+  position: absolute;
+  margin-top: 250px;
+  font-size:30px;
+  color:white;}
+fieldset5{
+  left:62%;
+  position: absolute;
+  margin-top: 400px;
+  font-size:30px;
+  color:white;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+divreq{
+  white-space: pre-line;
+}
+#button123{
+  top:85%;
+  left:37%;
+  width:400px;
+  height:70px;
+  border-radius: 10px;
+  position: fixed;
+  background-color: rgb(76, 130, 251);
+  text-align: center;
+  font-size: 50px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+.button--loading .button__text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.button--loading::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border: 4px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+#button123:hover{
+  background-color: #4A6EF8;
+}
+#button123:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+nav{
+  margin-top: 25px;
+  background-color: #131625;
+  color:white;
+  font-size: 30px;
+  text-align:center;
+  padding: 0px;
+}
+
+nav ul{
+  list-style-type: none;
+}
+nav ul li{
+  display: inline-block;
+  padding:30px ;
+}
+nav a{
+  text-decoration: none;
+  color:white;
+}
+nav a:hover{
+  color:#99a1bd;
+}
+ pre {
+    display: inline;
+    }  
+.swal2-popup {
+  font-size: 20px;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+legend{
+  color:rgb(153, 161, 189);
+}
+#date{
+  width:240px;
+  height: 50px;
+  font-size:20px;
+  
+}
+.active{
+    color: #99a1bd;
+   }
+
+</style>
+
+  
+</head>
+  
+
+
+<body>
+
+<h1>Blockchain voting system </h1>
+<nav>
+  <ul>
+    <li><a href="index.html">Home Page</a></li>
+     <li><a class="active" href="crvoting.html">Create voting</a></li>
+    <li><a href="seacrchvotings.html">Vote</a></li>
+    <li><a href="manage.html">Manage voting</a></li>
+    <li><a href="https://tremendous-sphynx-df4.notion.site/User-guide-942a63b2b63a4119af53351ad1a5dcfe">User guide</a></li>
+  </ul>
+</nav>
+
+
+
+<input onclick="connect_wallet()" type="button" value="Connect wallet" id="button_connect"> </input> 
+
+
+<h3> Check our guide before started!  </h3>
+
+<form id="question1">
+<legend>1. Enable requirements?</legend>
+    <pre>
+    <input type="radio" id="rad1" value="yes" name="question1" onclick="enable_label()">Yes, I'll use it!</input>
+    <input type="radio" id="rad2" value="no" name="question1" onclick="disable_label()">No. Not this time</input>
+    </pre>
+</form>
+  
+<fieldset1 id="question2">
+<legend>2. Enter Voting title</legend>
+    <input type="text" id="title" name="title" </input>
+</fieldset1>
+
+<fieldset2 id="question3">
+<legend>3. Enter Voting description</legend>
+    <input type="text" id="description" name="description" </input>
+</fieldset2>
+
+
+<fieldset3 id="question4">
+<legend>4. Enter proposals</legend>
+ <textarea name="Text1" id="TextArea1" cols="20" rows="4"></textarea>
+</fieldset3>  
+  
+<fieldset4 id="question5">
+<legend>5. Enter deadline</legend>
+
+    <input type="date" id="date" value=""
+       min="2022-00-00" max="2023-12-31">
+
+</fieldset4> 
+  
+<fieldset5 id="question6">
+<legend>6. Enter requirements</legend>
+<pre>
+<label1>  Token address - <input type="text" disabled  id="tokenaddress" name="tokenaddress" </input></label1>
+<label2>  Minimum Amount to hold - <input type="text" disabled id="amount_h" name="amount_h" </input</label2>
+</pre>
+</fieldset5>    
+
+
+
+<button type="button" id="button123"  class="button" onclick="this.classList.toggle('button--loading');create_voting();" disabled>
+    <span class="button__text">Create voting</span>
+</button>
+
+
+
+  <script>
+  var connection_status=false;
+  const btn = document.querySelector(".button");
+  var walletAddress="";
+  const form = document.getElementById("question1");
+console.log(get_timestamp());
+  /// update label due to checkbox
+function enable_label(){
+     document.getElementById("tokenaddress").disabled = false;
+     document.getElementById("amount_h").disabled = false;
+ }
+function disable_label(){
+     document.getElementById("tokenaddress").disabled = true;
+     document.getElementById("tokenaddress").value = ''  ;
+     document.getElementById("amount_h").disabled = true;
+     document.getElementById("amount_h").value = '';
+ }
+  
+
+/// create voting
+async function create_voting(){
+  ///setup smart contract
+  const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "voting_question",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "voting_description",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "proposals_entered",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "deadline_timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "create_Ballot_simple",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "voting_question",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "voting_description",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "address_of_required_token",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount_to_hold",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string[]",
+				"name": "proposals_entered",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "deadline_timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "create_Ballot_with_r",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "deployed_Contracts",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "get_deployed_Contacts",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+  const Address = "0x0e3B712715d19930648a7C277222d25ad848C2ad";
+
+  var web3 = new Web3(window.ethereum);
+  var Mycontract = new web3.eth.Contract( ABI, Address); 
+  /// 
+  ///check your inputs
+  var proposals_ent = $('#TextArea1').val().split('\n');
+  console.log(proposals_ent);
+  var result= await Swal.fire({
+        text: 'Please check, that proposals are entered correctly - '+proposals_ent+'. Array length - '+proposals_ent.length+'. Each option name should be separated by comma',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        cancelButtonText:"Don't Save",
+        preConfirm: function(result) {
+          return result;
+        }
+  });
+  if (result.value == true){
+    ;
+  }else{
+    btn.classList.remove("button--loading");
+    return;
+  }
+
+  
+  /// with requirements
+  if (form.elements["rad1"].checked== true){
+    ///check for inputs
+    if (document.getElementById("tokenaddress").value=='' || document.getElementById("amount_h").value == ''){
+       Swal.fire({
+        type: 'error',
+        text: 'Type values in "token address" and "amount" fields!'
+      })
+      btn.classList.remove("button--loading");
+      return;
+    }
+    
+    var token_adr=document.getElementById("tokenaddress").value;
+    var timestamp=get_timestamp();
+    var min_amount=document.getElementById("amount_h").value;
+    /// check for inputs
+    if (web3.utils.isAddress(token_adr)){
+      var code = await web3.eth.getCode(token_adr);
+      if (code=="0x"){
+        Swal.fire({
+        type: 'error',
+        text: "Address entered isn't a smart contract, please check again or get a look on our docs"
+        })
+        btn.classList.remove("button--loading");
+        return;
+      }
+    }else{
+      Swal.fire({
+        type: 'error',
+        text: 'Enter correct address in "Token address!"'
+      })
+      btn.classList.remove("button--loading");
+      return;
+    }
+    /// check for inputs
+    if(true == !(isNaN(min_amount))){
+      ;
+    }else{
+      Swal.fire({
+        type: 'error',
+        text: "Enter only number in  'amount' field"
+      })
+      btn.classList.remove("button--loading");
+      return;
+    }
+ 
+    var voting_t=document.getElementById("title").value;
+    var voting_d=document.getElementById("description").value;
+    
+
+    /// create voting
+    try {
+      await Mycontract.methods.create_Ballot_with_r(voting_t,voting_d,token_adr,min_amount,proposals_ent,timestamp).send({from:walletAddress});
+    }
+    catch(err){
+      btn.classList.remove("button--loading");
+      return;
+    }
+    
+    btn.classList.remove("button--loading");
+    var adr=await Mycontract.methods.get_deployed_Contacts().call();
+    navigator.clipboard.writeText(adr[adr.length - 1]);
+    Swal.fire({
+        type: 'success',
+        text: "success!, your unique address for voting is - "+adr[adr.length - 1]+".We have copied address to the clipboard"
+      })
+    btn.classList.remove("button--loading");
+
+
+    
+    ///create voting without requirements
+   }if (form.elements["rad2"].checked== true) {
+    var voting_t=document.getElementById("title").value;
+    var voting_d=document.getElementById("description").value;
+
+    var timestamp=get_timestamp();
+    ///check for inputs
+    
+    ///create voting
+    try {
+      await Mycontract.methods.create_Ballot_simple(voting_t,voting_d,proposals_ent,timestamp).send({from:walletAddress});
+    }
+    catch(err){
+      btn.classList.remove("button--loading");
+      return;
+    }
+    
+    btn.classList.remove("button--loading");
+    var adr=await Mycontract.methods.get_deployed_Contacts().call();
+    navigator.clipboard.writeText(adr[adr.length - 1]);
+    Swal.fire({
+        type: 'success',
+        text: "success!, your unique address for voting is - "+adr[adr.length - 1]+". We have copied address to the clipboard"
+      })
+    btn.classList.remove("button--loading");
+
+
+
+
+//// if neither radio buttons checked
+  }if (form.elements["rad2"].checked== false && form.elements["rad1"].checked== false ){
+    Swal.fire({
+        type: 'error',
+        text: "Check the value in 'Enable requirements' field"
+      })
+    btn.classList.remove("button--loading");
+  }
+  
+
+}    
+///check all fields are fieled to enable button
+
+
+let d = document, [inputs, knapp] = [
+  d.querySelectorAll('#title,#description,#proposals,#TextArea1'),
+  d.querySelector('#button123')]
+
+knapp.disabled = true
+
+for (i = 0; i < inputs.length; i++) {
+  inputs[i].addEventListener('input',() => {
+      let values = []
+      inputs.forEach(v => values.push(v.value))
+      let b =values.includes('')
+      if (b){
+        knapp.disabled = true;
+    
+      }else{
+        if (connection_status==true){
+          knapp.disabled = false;
+        }else{
+           knapp.disabled = true;
+        }
+      }
+    })
+}
+///load devault values for textarea
+    $(document).ready(function() {
+      const message = document.getElementById('TextArea1');
+      message.value = 'name1' + '\r\n' + 'name2' + '\r\n' + 'name3';
+      let date = new Date();
+      date.setDate(date.getDate() + 1)
+      document.getElementById('date').valueAsDate = date;
+    });
+  
+  // connect metamask
+async function connect_wallet() {
+  if (window.ethereum) {
+     await window.ethereum.request({ method: "eth_requestAccounts" });
+     window.web3 = new Web3(window.ethereum);
+     const account = web3.eth.accounts;
+     await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0xAA36A7' }], // chainId must be in hexadecimal numbers
+      });
+     //Get the current MetaMask selected/active wallet
+     walletAddress = account.givenProvider.selectedAddress;
+     console.log(`Wallet: ${walletAddress}`);
+     document.getElementById('button_connect').value = walletAddress.slice(0,5)+"..."+walletAddress.slice(-5);
+     connection_status = true;
+    } else {
+     Swal.fire({
+        type: 'error',
+        text: "Metamask isn't installed"
+      })
+      return;}
+}
+    /// function to make timestamp from data field
+function get_timestamp(){
+  var date = new Date(document.getElementById("date").value);
+  var timestamp = (date.getTime())/1000;
+  return timestamp;
+}
+
+
+
+</script>
+
+</script>
+</body>
+</html>

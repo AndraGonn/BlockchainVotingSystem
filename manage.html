@@ -1,0 +1,1170 @@
+<html>
+
+<head>
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <style>
+    body {
+      overflow-x: hidden;
+      margin-bottom: 60px;
+      text-decoration: none;
+      background: linear-gradient(180deg, #202738 0%, #070816 100%);
+      font-family: "Arial"
+    }
+
+
+
+    h1 {
+      margin-top: 30px;
+      color: white;
+      text-decoration: none;
+      font-size: 50px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    nav li {}
+
+
+    nav {
+      margin-top: 25px;
+      background-color: #131625;
+      color: white;
+      font-size: 30px;
+      text-align: center;
+      padding: 0px;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style-type: none;
+      text-decoration: none;
+    }
+
+    nav ul li {
+
+      display: inline-block;
+      text-decoration: none;
+      padding: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      text-decoration: none;
+      color: white;
+    }
+
+    nav a:hover {
+      color: #99a1bd;
+      text-decoration: none;
+    }
+
+    input[type=button][id="button_connect"] {
+      top: 2%;
+      left: 85%;
+      width: 250px;
+      height: 60px;
+      padding: 5px;
+      border-radius: 10px;
+      position: absolute;
+      background-color: #232C56;
+      text-align: center;
+      font-size: 30px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    input[type=button][id="button_connect"]:hover {
+      color: #99a1bd;
+    }
+
+    #button_find {
+      top: 50%;
+      left: 65%;
+      width: 300px;
+      height: 70px;
+
+      border-radius: 10px;
+      position: fixed;
+      background-color: rgb(76, 130, 251);
+      text-align: center;
+      font-size: 40px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .button--loading .button__text {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .button--loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      border: 4px solid transparent;
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: button-loading-spinner 1s ease infinite;
+    }
+
+    @keyframes button-loading-spinner {
+      from {
+        transform: rotate(0turn);
+      }
+
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    #button_find:hover {
+      background-color: #4A6EF8;
+    }
+
+    #button_find:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #addr_ent {
+      position: fixed;
+
+      size: 4;
+      top: 50%;
+      left: 15%;
+      width: 800px;
+      height: 70px;
+      font-size: 30px;
+    }
+
+    #label_return {
+      top: 25%;
+      left: 3%;
+      text-decoration: underline;
+      position: fixed;
+      text-align: center;
+      font-size: 22px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #label_title {
+      top: 23%;
+      font-size: 40px;
+      left: 43%;
+      font-weight: bold;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #label_status {
+      top: 25%;
+      font-size: 20px;
+      left: 43%;
+      font-weight: bold;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: #FF0000;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #label_deadline {
+      top: 27%;
+      font-size: 20px;
+      left: 43%;
+      font-weight: bold;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: rgb(153, 161, 189);
+      font-family: 'Inter', sans-serif;
+    }
+    #label_voters{
+      top: 40%;
+      font-size: 30px;
+      left: 5%;
+      font-weight: bold;
+      text-align: center;
+      position: absolute;
+      color: rgb(153, 161, 189);
+      font-family: 'Inter', sans-serif;
+    }
+    #voters{
+      top: 45%;
+      font-size: 30px;
+      left: 5%;
+      background-color: white;
+      position: absolute;
+      font-family: 'Inter', sans-serif;
+    }
+    #label_results {
+      top: 40%;
+      font-size: 30px;
+      left: 60%;
+      position: absolute;
+      font-weight: bold;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: rgb(153, 161, 189);
+      font-family: 'Inter', sans-serif;
+    }
+   #label_proposals2 {
+      top: 45%;
+      font-size: 30px;
+      left: 40%;
+      position: absolute;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+     #label_manage {
+      top: 55%;
+      font-size: 30px;
+      left: 60%;
+      position: absolute;
+      font-weight: bold;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: rgb(153, 161, 189);
+      font-family: 'Inter', sans-serif;
+    }
+    #button_winner{
+      top: 63%;
+      left: 48%;
+      width: 300px;
+      height: 60px;
+
+      border-radius: 10px;
+      position: fixed;
+      background-color: rgb(76, 130, 251);
+      text-align: center;
+      font-size: 35px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+     #button_winner:hover {
+      background-color: #4A6EF8;
+    }
+    #button_holders{
+      top: 63%;
+      left: 68%;
+      width: 300px;
+      height: 60px;
+
+      border-radius: 10px;
+      position: fixed;
+      background-color: rgb(76, 130, 251);
+      text-align: center;
+      font-size: 35px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+    #button_winner:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    #button_holders:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+     #button_holders:hover {
+      background-color: #4A6EF8;
+    }
+    .button__text{
+ 
+ 
+      vertical-align: middle;
+    }
+    #label_search {
+      top: 30%;
+      font-size: 50px;
+      left:40%;
+      position: fixed;
+      font-weight: bold;
+      text-align: center;
+      justify-content: center;
+      color: rgb(153, 161, 189);
+      font-family: 'Inter', sans-serif;
+    }
+   #label_winner{
+      top: 87%;
+      font-size: 40px;
+      left:39%;
+      position:absolute;
+      font-weight: bold;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: #FF0000;
+      font-family: 'Inter', sans-serif;
+   }
+  .swal2-popup {
+  font-size: 20px;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+.active{
+    color: #99a1bd;
+   }
+  </style>
+
+
+</head>
+
+
+
+<body>
+  <h1>Blockchain voting system </h1>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home Page</a></li>
+      <li><a href="crvoting.html">Create voting</a></li>
+      <li><a href="seacrchvotings.html">Vote</a></li>
+      <li><a class="active" href="manage.html">Manage voting</a></li>
+      <li><a href="https://tremendous-sphynx-df4.notion.site/User-guide-942a63b2b63a4119af53351ad1a5dcfe">User guide</a></li>
+    </ul>
+  </nav>
+
+
+  <input onclick="connect_wallet()" type="button" value="Connect wallet" id="button_connect"> </input>
+  <input type="text" id="addr_ent" placeholder="Enter voting address" </input>
+
+  <button type="button" id="button_find" class="button"
+    onclick="this.classList.toggle('button--loading');manage_voting()" disabled>
+    <span class="button__text">Manage voting</span>
+  </button>
+
+
+ <label16 type="label" id="label_search">Manage votings</label16>
+  <label1 type="label" id="label_return" onclick="returning()" hidden>← Return</label1>
+  <label2 type="label" id="label_title" hidden></label2>
+  <label3 type="label" id="label_status" hidden></label3>
+  <label4 type="label" id="label_deadline" hidden></label4>
+  <label6 type="label" id="label_results" hidden>Current Results:</label6>  
+  <label5 for="voters" id ="label_voters" hidden>Voters:</label5>
+  <label13 type="label" id="label_proposals2" hidden ></label13>
+  <textarea id="voters" rows="10" cols="30" hidden></textarea>
+  <label7 type="label" id="label_manage"hidden  >Manage Voting:</label7>  
+  <label8 type="label" id="label_winner"hidden></label8>  
+
+  
+    <button type="button" id="button_winner" class="button" 
+    onclick="this.classList.toggle('button--loading');find_winner()" hidden>
+    <span class="button__text">Finalise voting</span>
+  </button>
+   <button type="button" id="button_holders" class="button"
+    onclick="this.classList.toggle('button--loading');check_holders()" disabled hidden>
+    <span class="button__text">Check Voters</span>
+  </button>
+<script>
+    var connection_status = false;
+    const btn_find = document.querySelector("#button_find");
+    var walletAddress = "";
+    const ABI_reqir = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "authority",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "question",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "token_address",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string[]",
+				"name": "proposals_entered",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "address_of_required_token",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "address_of_voter",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "amount_to_hold",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ballot_authority",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "check_for_holders",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "deadline_timestamp",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposals",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "proposal_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "proposal_vote_count",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "status",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposal",
+				"type": "uint256"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "voters",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "voter_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "proposal_name_chosed",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Voter_weight",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "user_is_voted",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "proposal_index",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "voting_description",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "voting_question",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winner_Name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winningProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
+    const ABI_simple = [
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "authority",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "question",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "proposals_entered",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "address_of_voter",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ballot_authority",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "deadline_timestamp",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposals",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "proposal_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "proposal_vote_count",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "status",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "proposal",
+				"type": "uint256"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "voters",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "voter_address",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "proposal_name_chosed",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "user_is_voted",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint256",
+				"name": "chosed_proposal",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "voting_description",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "voting_question",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winner_Name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winningProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
+    var req_enabled;
+    var count_equal;
+    var voting_status;
+    var contract_address;
+    const btn_holders=document.getElementById("button_holders");
+    const btn_winner = document.getElementById("button_winner");
+
+    async function manage_voting() {
+      req_enabled = false;
+      voting_status = true;
+      contract_address = document.getElementById("addr_ent").value;
+      
+      
+      if (web3.utils.isAddress(contract_address)) {
+        ///simple checks of inputs  
+        var code = await web3.eth.getCode(contract_address);
+        if (code == "0x") {
+          Swal.fire({
+            type: 'error',
+            text: "Address entered isn't a voting address, please check again or get a look on our docs"
+          })
+          btn_find.classList.remove("button--loading");
+          return;
+        }
+      } else {
+        Swal.fire({
+          type: 'error',
+          text: 'Enter correct address!'
+        })
+        btn_find.classList.remove("button--loading");
+        return;
+      }
+      ///main part
+      ///setup smart-contract 
+
+      var Mycontract = new web3.eth.Contract(ABI_reqir, contract_address);
+
+      try {
+        document.getElementById('label_status').innerHTML = await Mycontract.methods.address_of_required_token.call().call();
+        req_enabled = true;
+      }
+      catch (error) {
+        var Mycontract = new web3.eth.Contract(ABI_simple, contract_address);
+      }
+
+
+
+
+
+      
+
+      try {
+        document.getElementById('label_title').innerHTML = "Voting - " + await Mycontract.methods.voting_question.call().call();
+      }
+      catch (err) {
+        Swal.fire({
+          type: 'error',
+          text: "You entered wrong voting address! We couldn't manage to find any data about this address"
+        })
+        btn_find.classList.remove("button--loading");
+        return;
+      }
+      /////more simple checks
+     
+      if(Web3.utils.toChecksumAddress(walletAddress) != await Mycontract.methods.ballot_authority.call().call()){
+        Swal.fire({
+          type: 'error',
+          text: "You are not a creator of this voting"
+        })
+        btn_find.classList.remove("button--loading");
+        return;
+      }
+      var check = [];
+      /// display voting count
+      for (var i = 0; i <= 4; i++) {
+        try {
+          let opt_text = (await Mycontract.methods.proposals(i).call())['proposal_name'];
+          let opt_vote_count= (await Mycontract.methods.proposals(i).call())['proposal_vote_count'];
+          check.push(opt_vote_count);
+          if (req_enabled==true){
+            document.getElementById('label_proposals2').innerHTML += (i + 1) + ". " + opt_text + "("+(opt_vote_count/(10**18))+" vot.)"+'&nbsp &nbsp &nbsp ';
+          }if (req_enabled==false){
+            document.getElementById('label_proposals2').innerHTML += (i + 1) + ". " + opt_text + "("+opt_vote_count+" vot.)"+'&nbsp &nbsp &nbsp ';
+          }
+        }
+        catch (err) {
+          break;
+        }
+      }
+      ////if option1 has 1 vote and option 2 has 1 vote you can't find winner, so allAreEqual check
+      /// count_equal will be used in finalize_voting fucntion
+    count_equal = allAreEqual(check);
+///////
+      ///////
+     
+      //////
+      if (await Mycontract.methods.status.call().call() == true) {
+        document.getElementById('label_status').innerHTML = "Status: ongoing";
+        if (getCurrentTimestamp()>await Mycontract.methods.deadline_timestamp.call().call()){
+        document.getElementById('label_deadline').innerHTML = "Deadline has been reached"+". Requirements enabled: "+req_enabled;
+        }else{
+        document.getElementById('label_deadline').innerHTML = "Deadline: unreached"+". Requirements enabled: "+req_enabled;
+        }
+      } else {
+        document.getElementById('label_status').innerHTML = "Status: finalized";
+        voting_status = false;
+      }
+ 
+      /////fill text area with voters information
+      for (i = 0; i < 100; i++) {
+        try{
+         let voters_list = await Mycontract.methods.address_of_voter(i).call();
+        console.log(voters_list);
+        console.log(await Mycontract.methods.voters(voters_list).call());  
+          if (req_enabled == true){
+           document.getElementById('voters').value += voters_list + '. Voted for "'+ (await Mycontract.methods.voters(voters_list).call())['proposal_name_chosed']+ '". Voter power - '+((await Mycontract.methods.voters(voters_list).call())['Voter_weight']/(10**18))+'\r\n';
+          }else{
+              document.getElementById('voters').value += voters_list + '. Voted for "'+ (await Mycontract.methods.voters(voters_list).call())['proposal_name_chosed'] +'"'+'\r\n';
+          }
+        }
+      catch(err){
+        if (i==0){
+           document.getElementById('voters').value ="No one voted so far";
+           break;
+        }else{
+          break;
+        //}
+      }
+    }
+  }
+      document.getElementById('label_winner').innerHTML = "Winner - " + await Mycontract.methods.winner_Name.call().call();
+      
+      ///disable
+      btn_find.classList.remove("button--loading");
+      document.getElementById("addr_ent").style.display = 'none';
+      document.getElementById("button_find").style.display = 'none';
+      document.getElementById("label_search").style.display = 'none';
+      /// enable
+      if (voting_status==true){
+        if (req_enabled==true){
+           btn_holders.disabled = false;
+           btn_winner.disabled = false;
+          } if (req_enabled==false){
+               btn_holders.disabled = true;
+               btn_winner.disabled = false;
+          }
+      }if (voting_status==false){
+           btn_holders.disabled = true;
+           btn_winner.disabled = true;
+           document.getElementById('label_winner').style.display = 'block';
+      }
+      
+      document.getElementById("button_holders").style.display = 'block';
+      document.getElementById("button_winner").style.display = 'block';
+      document.getElementById("label_status").style.display = 'block';
+      document.getElementById('label_return').style.display = 'block';
+      document.getElementById('label_title').style.display = 'block';
+      document.getElementById('label_deadline').style.display = 'block';
+      document.getElementById('label_voters').style.display = 'block';
+      document.getElementById('voters').style.display = 'block';
+      document.getElementById('label_results').style.display = 'block';
+      document.getElementById('label_proposals2').style.display = 'inline-block';
+      document.getElementById('label_manage').style.display = 'block';
+    
+    }
+
+    function allAreEqual(array) {
+      const result = array.every(element => {
+        if (element === array[0]) {
+          return true;
+        }
+      });
+
+      return result;
+    }
+
+
+
+
+
+
+      function returning() {
+        document.getElementById("addr_ent").style.display = 'block';
+        document.getElementById("button_find").style.display = 'block';
+        document.getElementById('label_return').style.display = 'none';
+        document.getElementById("label_status").style.display = 'none';
+        document.getElementById('label_title').style.display = 'none';
+        document.getElementById('label_deadline').style.display = 'none';
+        document.getElementById('label_deadline').innerHTML = "";
+        document.getElementById('label_voters').style.display = 'none';
+        document.getElementById('voters').style.display = 'none';
+        document.getElementById('voters').value = "";
+        document.getElementById('label_results').style.display = 'none';
+        document.getElementById('label_proposals2').style.display = 'none';
+        document.getElementById('label_proposals2').innerHTML = " ";
+        document.getElementById("button_holders").style.display = 'none';
+        document.getElementById("button_winner").style.display = 'none';
+        document.getElementById('label_manage').style.display = 'none';
+        document.getElementById("label_search").style.display = 'block';
+        document.getElementById('label_winner').style.display = 'none';
+        var req_enabled = false;
+        var voting_status = true;
+        return;
+
+      }
+
+
+
+    async function find_winner(){
+      if (count_equal==true){
+        Swal.fire({
+          type: 'error',
+          text: "You can't decide winner as voting count are equals"
+        })
+        document.getElementById('button_winner').classList.remove("button--loading");
+        return;
+      }
+      if (req_enabled==true){
+      var Mycontract = new web3.eth.Contract(ABI_reqir, contract_address);
+      }else{
+      var Mycontract = new web3.eth.Contract(ABI_simple, contract_address);
+      }
+      try {
+          await Mycontract.methods.winningProposal().send({from:walletAddress});
+          }
+        catch(err){
+            document.getElementById('button_winner').classList.remove("button--loading");
+          return;  
+          }
+      Swal.fire({
+          type: 'success',
+          text: "Winner is '" + await Mycontract.methods.winner_Name.call().call()+"'"
+        })
+      document.getElementById('button_winner').classList.remove("button--loading");
+    }
+
+     async function check_holders(){
+       var Mycontract = new web3.eth.Contract(ABI_reqir, contract_address);
+       try {
+          await Mycontract.methods.check_for_holders().send({from:walletAddress});
+          }
+      catch(err){
+            document.getElementById('button_holders').classList.remove("button--loading");
+          return;  
+          }
+        Swal.fire({
+          type: 'success',
+          text: "Voters are now checked!"
+        })
+      document.getElementById('button_holders').classList.remove("button--loading");
+     }
+
+
+
+
+      async function connect_wallet() {
+        if (window.ethereum) {
+          await window.ethereum.request({method: "eth_requestAccounts"});
+          window.web3 = new Web3(window.ethereum);
+          const account = web3.eth.accounts;
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{chainId: '0xAA36A7'}], // chainId must be in hexadecimal numbers
+          });
+          //Get the current MetaMask selected/active wallet
+          walletAddress = account.givenProvider.selectedAddress;
+          console.log(`Wallet: ${walletAddress}`);
+          document.getElementById('button_connect').value = walletAddress.slice(0,5)+"..."+walletAddress.slice(-5);
+          connection_status = true;
+        } else {
+          Swal.fire({
+            type: 'error',
+            text: "Metamask isn't installed"
+          })
+          return;
+        }
+      }
+
+
+      //// check inputs so button will be available if something entered
+      let d = document, [inputs, button] = [
+        d.querySelectorAll('#addr_ent'),
+        d.querySelector('#button_find')]
+
+      button.disabled = true
+
+      for (i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('input', () => {
+          let values = []
+          inputs.forEach(v => values.push(v.value))
+          let b = values.includes('')
+          if (b) {
+            button.disabled = true;
+
+          } else {
+            if (connection_status == true) {
+              button.disabled = false;
+            } else {
+              button.disabled = true;
+            }
+          }
+        })
+      }
+
+//// get time
+  function getCurrentTimestamp () {
+  return Math.floor(Date.now() / 1000)
+  }
+
+  
+  </script>
+</body>
+
+</html>
