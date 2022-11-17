@@ -5,209 +5,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <meta charset="utf-8">
-
-  
-<style>
-
-body{
-  margin:0;
-  padding:0;
-  background: linear-gradient(180deg, #202738 0%, #070816 100%);
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
-}
-input[type=button][id="button_connect"] {
-  top:2%;
-  left:85%;
-  width:250px;
-  height:60px;
-  padding: 5px ;
-  border-radius: 10px;
-  position:  absolute;
-  background-color: #232C56;
-  text-align: center;
-  font-size: 30px;
-  color: white;
-  font-family: 'Inter', sans-serif;
-}
-input[type=button][id="button_connect"]:hover{
-  color:#99a1bd;
-}
-  
-input[type=text]{
-   height:50px;
-   font-size:20pt;
-}
-input[type=text][id='amount_h']{
-   height:50px;
-   width:185px;
-   font-size:20pt;
-}
-
-div1{
-  color: white;
-  margin-top: 300px;
-  left:72%;
-}
-
-h1{
-  font-size: 50px;
-  margin-top: 30px;
-  color:white;
-  text-align: center;
-}  
-
-h3{
-  left:37%;
-  position: absolute;
-  margin-top: 20px;
-  text-align: center;
-  font-size:30px;
-  color:white;
-}
-
-form{
-  left:15%;
-  position: absolute;
-  margin-top: 100px;
-  font-size:30px;
-  color:white;}
-  
-fieldset1{
-  left:15%;
-  position: absolute;
-  margin-top: 250px;
-  font-size:30px;
-  color:white;}
-
-fieldset2{
-  left:15%;
-  position: absolute;
-  margin-top: 400px;
-  font-size:30px;
-  color:white;}
-
-fieldset3{
-  left:62%;
-  position: absolute;
-  margin-top: 100px;
-  font-size:30px;
-  color:white;}
-#TextArea1{
-  font-size:20px;
-  resize: none;
-}
-fieldset4{
-  left:62%;
-  position: absolute;
-  margin-top: 250px;
-  font-size:30px;
-  color:white;}
-fieldset5{
-  left:62%;
-  position: absolute;
-  margin-top: 400px;
-  font-size:30px;
-  color:white;
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif
-}
-divreq{
-  white-space: pre-line;
-}
-#button123{
-  top:85%;
-  left:37%;
-  width:400px;
-  height:70px;
-  border-radius: 10px;
-  position: fixed;
-  background-color: rgb(76, 130, 251);
-  text-align: center;
-  font-size: 50px;
-  color: white;
-  font-family: 'Inter', sans-serif;
-}
-.button--loading .button__text {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.button--loading::after {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  border: 4px solid transparent;
-  border-top-color: #ffffff;
-  border-radius: 50%;
-  animation: button-loading-spinner 1s ease infinite;
-}
-
-@keyframes button-loading-spinner {
-  from {
-    transform: rotate(0turn);
-  }
-
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-#button123:hover{
-  background-color: #4A6EF8;
-}
-#button123:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-nav{
-  margin-top: 25px;
-  background-color: #131625;
-  color:white;
-  font-size: 30px;
-  text-align:center;
-  padding: 0px;
-}
-
-nav ul{
-  list-style-type: none;
-}
-nav ul li{
-  display: inline-block;
-  padding:30px ;
-}
-nav a{
-  text-decoration: none;
-  color:white;
-}
-nav a:hover{
-  color:#99a1bd;
-}
- pre {
-    display: inline;
-    }  
-.swal2-popup {
-  font-size: 20px;
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
-}
-legend{
-  color:rgb(153, 161, 189);
-}
-#date{
-  width:240px;
-  height: 50px;
-  font-size:20px;
-  
-}
-.active{
-    color: #99a1bd;
-   }
-
-</style>
+<link rel="icon" href="/img/rocket_launch_FILL0_wght400_GRAD0_opsz48.png">
+<link rel="stylesheet" href="/style.css">
 
   
 </head>
@@ -219,11 +18,11 @@ legend{
 <h1>Blockchain voting system </h1>
 <nav>
   <ul>
-    <li><a href="index.html">Home Page</a></li>
-     <li><a class="active" href="crvoting.html">Create voting</a></li>
-    <li><a href="seacrchvotings.html">Vote</a></li>
-    <li><a href="manage.html">Manage voting</a></li>
-    <li><a href="https://tremendous-sphynx-df4.notion.site/User-guide-942a63b2b63a4119af53351ad1a5dcfe">User guide</a></li>
+    <li class="hvr-sweep-to-right"><a href="index.html">Home Page</a></li>
+    <li class="hvr-sweep-to-right"><a class="active" href="crvoting.html">Create voting</a></li>
+    <li class="hvr-sweep-to-right"><a href="seacrchvotings.html">Vote</a></li>
+    <li class="hvr-sweep-to-right"><a href="manage.html">Manage voting</a></li>
+    <li class="hvr-sweep-to-right"><a href="https://tremendous-sphynx-df4.notion.site/User-guide-942a63b2b63a4119af53351ad1a5dcfe">User guide</a></li>
   </ul>
 </nav>
 
@@ -303,7 +102,7 @@ function disable_label(){
 
 /// create voting
 async function create_voting(){
-  ///setup smart contract
+  
   const ABI = [
 	{
 		"inputs": [
@@ -408,8 +207,7 @@ async function create_voting(){
 
   var web3 = new Web3(window.ethereum);
   var Mycontract = new web3.eth.Contract( ABI, Address); 
-  /// 
-  ///check your inputs
+  ////console.log(await Mycontract.methods.get_deployed_Contacts().call());
   var proposals_ent = $('#TextArea1').val().split('\n');
   console.log(proposals_ent);
   var result= await Swal.fire({
@@ -497,10 +295,7 @@ async function create_voting(){
         text: "success!, your unique address for voting is - "+adr[adr.length - 1]+".We have copied address to the clipboard"
       })
     btn.classList.remove("button--loading");
-
-
     
-    ///create voting without requirements
    }if (form.elements["rad2"].checked== true) {
     var voting_t=document.getElementById("title").value;
     var voting_d=document.getElementById("description").value;
@@ -525,11 +320,7 @@ async function create_voting(){
         text: "success!, your unique address for voting is - "+adr[adr.length - 1]+". We have copied address to the clipboard"
       })
     btn.classList.remove("button--loading");
-
-
-
-
-//// if neither radio buttons checked
+    
   }if (form.elements["rad2"].checked== false && form.elements["rad1"].checked== false ){
     Swal.fire({
         type: 'error',
@@ -597,7 +388,6 @@ async function connect_wallet() {
       })
       return;}
 }
-    /// function to make timestamp from data field
 function get_timestamp(){
   var date = new Date(document.getElementById("date").value);
   var timestamp = (date.getTime())/1000;

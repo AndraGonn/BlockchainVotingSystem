@@ -934,7 +934,7 @@
       contract_address = document.getElementById("addr_ent").value;
 
       if (web3.utils.isAddress(contract_address)) {
-        ///simple checks of inputs
+        ///simple checks
         var code = await web3.eth.getCode(contract_address);
         if (code == "0x") {
           Swal.fire({
@@ -952,7 +952,7 @@
         btn_find.classList.remove("button--loading");
         return;
       }
-
+      ///main part
       ///setup smart-contract 
       
       var Mycontract = new web3.eth.Contract(ABI_reqir, contract_address);
@@ -968,7 +968,6 @@
         btn_find.classList.remove("button--loading");
         return;
       }
-      ///requests to find if voting with requirements or not
       try {
         document.getElementById('label_status').innerHTML = await Mycontract.methods.address_of_required_token.call().call();
         req_enabled = true;
@@ -986,11 +985,12 @@
         document.getElementById('label_status').innerHTML = "Status: finalized";
         voting_status = false;
       }
-    
+      console.log(voting_status, req_enabled);
+      ///
       document.getElementById('label_descr2').innerHTML = await Mycontract.methods.voting_description.call().call();
       document.getElementById('label_creator2').innerHTML = await Mycontract.methods.ballot_authority.call().call();
       document.getElementById('label_deadline').innerHTML = "Voting ends " + timeConverter(await Mycontract.methods.deadline_timestamp.call().call());
-      //getiing proposals on label
+      //getiing proposals
 
       for (var i = 0; i <= 4; i++) {
         try {
@@ -1171,7 +1171,7 @@
       }
     }
 
-  //// convert time fucntion
+
     function timeConverter(UNIX_timestamp) {
       var a = new Date(UNIX_timestamp * 1000);
       var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1184,7 +1184,7 @@
       var time = date + ' ' + month + ' ' + year;
       return time;
     }
-/// label return
+
     function returning() {
       document.getElementById("addr_ent").style.display = 'block';
       document.getElementById("button_find").style.display = 'block';

@@ -389,6 +389,8 @@
 <script>
     var connection_status = false;
     const btn_find = document.querySelector("#button_find");
+    ///const select = document.getElementById("select");
+    //const btn= document.getElementById("button_submit");
     var walletAddress = "";
     const ABI_reqir = [
 	{
@@ -868,7 +870,7 @@
       
       
       if (web3.utils.isAddress(contract_address)) {
-        ///simple checks of inputs  
+        ///simple checks
         var code = await web3.eth.getCode(contract_address);
         if (code == "0x") {
           Swal.fire({
@@ -916,7 +918,7 @@
         btn_find.classList.remove("button--loading");
         return;
       }
-      /////more simple checks
+      /////
      
       if(Web3.utils.toChecksumAddress(walletAddress) != await Mycontract.methods.ballot_authority.call().call()){
         Swal.fire({
@@ -927,7 +929,6 @@
         return;
       }
       var check = [];
-      /// display voting count
       for (var i = 0; i <= 4; i++) {
         try {
           let opt_text = (await Mycontract.methods.proposals(i).call())['proposal_name'];
@@ -943,10 +944,8 @@
           break;
         }
       }
-      ////if option1 has 1 vote and option 2 has 1 vote you can't find winner, so allAreEqual check
-      /// count_equal will be used in finalize_voting fucntion
     count_equal = allAreEqual(check);
-///////
+
       ///////
      
       //////
@@ -962,7 +961,7 @@
         voting_status = false;
       }
  
-      /////fill text area with voters information
+      /////fill text area
       for (i = 0; i < 100; i++) {
         try{
          let voters_list = await Mycontract.methods.address_of_voter(i).call();
@@ -1133,7 +1132,7 @@
       }
 
 
-      //// check inputs so button will be available if something entered
+      ////
       let d = document, [inputs, button] = [
         d.querySelectorAll('#addr_ent'),
         d.querySelector('#button_find')]
@@ -1158,7 +1157,7 @@
         })
       }
 
-//// get time
+
   function getCurrentTimestamp () {
   return Math.floor(Date.now() / 1000)
   }
